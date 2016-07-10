@@ -1,28 +1,43 @@
 sudo: false
 language: cpp
 
+addons:
+  apt:
+    sources: &common_sources
+    - ubuntu-toolchain-r-test
+
 matrix:
   include:
     - compiler: gcc-4.8
       env: BUILD_CC=gcc-4.8 BUILD_CXX=g++-4.8
       addons:
         apt:
+          sources:
+          - *common_sources
+          packages:
           - g++-4.8
     - compiler: gcc-5
       env: BUILD_CC=gcc-5 BUILD_CXX=g++-5
       addons:
         apt:
+          sources:
+          - *common_sources
+          packages:
           - g++-5
     - compiler: gcc-6
       env: BUILD_CC=gcc-6 BUILD_CXX=g++-6
       addons:
         apt:
+          sources:
+          - *common_sources
+          packages:
           - g++-6
     - compiler: clang-3.7
       env: BUILD_CC=clang-3.7 BUILD_CXX=clang++-3.7
       addons:
         apt:
           sources:
+          - *common_sources
           - llvm-toolchain-precise-3.7
           packages:
           - clang-3.7
@@ -31,6 +46,7 @@ matrix:
       addons:
         apt:
           sources:
+          - *common_sources
           - llvm-toolchain-precise-3.8
           packages:
           - clang-3.8
