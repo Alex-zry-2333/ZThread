@@ -12,5 +12,6 @@ language: cpp
 #  - export CXX=g++-5
 
 script:
+  - autoconf
   - ./configure
   - make
