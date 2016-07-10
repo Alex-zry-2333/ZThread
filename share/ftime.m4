@@ -6,10 +6,10 @@ dnl in the Software without restriction, including without limitation the rights
 dnl to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 dnl copies of the Software, and to permit persons to whom the Software is furnished
 dnl to do so, subject to the following conditions:
-dnl 
+dnl
 dnl The above copyright notice and this permission notice shall be included in all
 dnl copies or substantial portions of the Software.
-dnl 
+dnl
 dnl THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 dnl IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 dnl FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -18,24 +18,24 @@ dnl WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 dnl CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 dnl
-dnl Enables AM_DETECT_FTIME to test for 
+dnl Enables AM_DETECT_FTIME to test for
 dnl the right ftime()/_ftime() function
 dnl
 dnl --enable-atomic-gcc=yes|no [default=no]
 dnl
 dnl If support is available, then SYSTEM_FTIME
-dnl is defined to be the ftime function 
+dnl is defined to be the ftime function
 dnl will be set
 dnl
 ifdef(AM_DETECT_FTIME,,[
-  
+
 NO_FTIME_ERROR=<<"EOF"
 ftime()/_ftime() could not be found on this system.
 EOF
 
 have_ftime="detect"
 
-AC_DEFUN(AM_DETECT_FTIME,
+AC_DEFUN([AM_DETECT_FTIME],
 [
 
  AC_ARG_WITH(ftime,
@@ -43,7 +43,7 @@ AC_DEFUN(AM_DETECT_FTIME,
 		       [select an ftime() [default=detect]]),
  [have_ftime="$withval"
   if test $withval = "yes"; then have_ftime="detect"; fi
- ], 
+ ],
  [have_ftime="detect"])
 
  if test $have_ftime = "detect"; then
@@ -58,7 +58,7 @@ AC_DEFUN(AM_DETECT_FTIME,
    echo "verifying POSIX ftime() function"
  fi
 
- dnl Test win32 style 
+ dnl Test win32 style
  if test $have_ftime != "posix"; then
 
  AC_CHECK_HEADER([sys/time.h],
@@ -67,7 +67,7 @@ AC_DEFUN(AM_DETECT_FTIME,
    AC_TRY_LINK([#include <sys/time.h>],[_ftime(0);],
    [ AC_MSG_RESULT(yes)
      AC_DEFINE_UNQUOTED(SYSTEM_FTIME, [_ftime],
-	[Defined if ftime()/_ftime() is usable])	
+	[Defined if ftime()/_ftime() is usable])
      have_ftime="win32"
    ],
    [ AC_MSG_RESULT(no) ])
@@ -76,7 +76,7 @@ AC_DEFUN(AM_DETECT_FTIME,
 
  fi
 
- dnl Test posix style 
+ dnl Test posix style
  if test $have_ftime != "win32"; then
 
  AC_CHECK_HEADER([sys/timeb.h],
@@ -85,7 +85,7 @@ AC_DEFUN(AM_DETECT_FTIME,
    AC_TRY_LINK([#include <sys/timeb.h>], [ ftime(0); ] ,
    [ AC_MSG_RESULT(yes)
      AC_DEFINE_UNQUOTED(SYSTEM_FTIME, [ftime],
-	[Defined if ftime()/_ftime() is usable])	
+	[Defined if ftime()/_ftime() is usable])
      have_ftime="posix"
    ],
    [ AC_MSG_RESULT(no) ])
