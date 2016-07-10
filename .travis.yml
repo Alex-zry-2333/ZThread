@@ -1,6 +1,7 @@
 sudo: false
 language: cpp
 
+matrix:
   include:
     - compiler: gcc-4.8
       env: BUILD_CC=gcc-4.8 BUILD_CXX=g++-4.8
