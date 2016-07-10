@@ -29,7 +29,7 @@
 
 namespace ZThread {
 
-  namespace { class ExecutorImpl; }
+  namespace PoolExecutorInternals { class ExecutorImpl; }
 
   /**
    * @class PoolExecutor
@@ -59,7 +59,7 @@ namespace ZThread {
   private:
 
     //! Reference to the internal implementation
-    CountedPtr< ExecutorImpl > _impl;
+    CountedPtr< PoolExecutorInternals::ExecutorImpl > _impl;
 
     //! Cancellation task
     Task _shutdown;
