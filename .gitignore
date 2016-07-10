@@ -14,4 +14,7 @@ src/stamp-h1
 *.a
 *.dylib
 *.so
+src/.deps
 src/.libs
+*~
+autom4te.cache/
