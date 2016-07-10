@@ -1,0 +1,17 @@
+*.o
+*.Plo
+config.log
+config.status
+libtool
+Makefile
+share/zthread-config
+share/zthread.spec
+src/config.h
+src/Makefile
+src/stamp-h1
+*.lo
+*.la
+*.a
+*.dylib
+*.so
+src/.libs
