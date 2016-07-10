@@ -867,10 +867,10 @@ dnl in the Software without restriction, including without limitation the rights
 dnl to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 dnl copies of the Software, and to permit persons to whom the Software is furnished
 dnl to do so, subject to the following conditions:
-dnl 
+dnl
 dnl The above copyright notice and this permission notice shall be included in all
 dnl copies or substantial portions of the Software.
-dnl 
+dnl
 dnl THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 dnl IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 dnl FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -882,8 +882,8 @@ dnl AM_ACLOCAL_INCLUDE(macrodir)
 AC_DEFUN([AM_ACLOCAL_INCLUDE],
 [
   test -n "$ACLOCAL_FLAGS" && ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
-  for k in $1; 
-   do ACLOCAL="$ACLOCAL -I $k"; 
+  for k in $1;
+   do ACLOCAL="$ACLOCAL -I $k";
    echo "Loading m4 macros from $k";
   done
 
@@ -897,10 +897,10 @@ dnl in the Software without restriction, including without limitation the rights
 dnl to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 dnl copies of the Software, and to permit persons to whom the Software is furnished
 dnl to do so, subject to the following conditions:
-dnl 
+dnl
 dnl The above copyright notice and this permission notice shall be included in all
 dnl copies or substantial portions of the Software.
-dnl 
+dnl
 dnl THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 dnl IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 dnl FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -909,12 +909,12 @@ dnl WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 dnl CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 dnl
-dnl Enables AM_DETECT_PTHREAD to test for 
+dnl Enables AM_DETECT_PTHREAD to test for
 dnl pthreads support
 dnl
 dnl --with-pthread
 dnl
-dnl If support is available, then HAVE_POSIX_THREADS 
+dnl If support is available, then HAVE_POSIX_THREADS
 dnl will be set
 dnl TODO: update the checks to only use -lrt when needed
 dnl
@@ -935,7 +935,7 @@ pthread_explicit="no"
  AC_ARG_ENABLE(pthread,
         AC_HELP_STRING([--enable-pthread],
                        [use pthreads [default=detect]]),
- [pthread_explicit="yes"], 
+ [pthread_explicit="yes"],
  [enable_pthread="yes"])
 
 
@@ -953,7 +953,7 @@ pthread_explicit="no"
    pthread_explicit="yes"
    enable_pthread="yes"
 
-  ], 
+  ],
   [PTHREAD_LIBS=""
    PTHREAD_CXXFLAGS=""
   ])
@@ -962,9 +962,9 @@ pthread_explicit="no"
 
   if test x$enable_pthread != xno; then
 
-   ac_save_LIBS="$LIBS" 
+   ac_save_LIBS="$LIBS"
    ac_save_CXXFLAGS="$CXXFLAGS"
- 
+
    AC_CHECK_HEADER([pthread.h],
    [AC_MSG_CHECKING([for linker option -pthread])
 
@@ -977,7 +977,7 @@ pthread_explicit="no"
     ],
     [AC_MSG_RESULT(yes)
      AC_DEFINE(HAVE_POSIX_THREADS,,[defined when pthreads is available])
-     PTHREAD_LIBS="$PTHREAD_LIBS -pthread" 
+     PTHREAD_LIBS="$PTHREAD_LIBS -pthread"
 
     ],
     [AC_MSG_RESULT(no)
@@ -988,13 +988,13 @@ pthread_explicit="no"
      AC_TRY_LINK([#include <pthread.h>],
      [
        pthread_create((pthread_t*) 0,(pthread_attr_t*) 0, 0, 0);
-     ], 
+     ],
      [AC_MSG_RESULT(yes)
       AC_DEFINE(HAVE_POSIX_THREADS,,[defined when pthreads is available])
       PTHREAD_LIBS="$PTHREAD_LIBS -lpthread"
      ],
      [AC_MSG_RESULT(no)
-    
+
      if test $pthread_explicit = "yes"; then
        AC_MSG_ERROR(${NO_PTHREAD_ERROR})
      fi
@@ -1004,7 +1004,7 @@ pthread_explicit="no"
   ])
 
   dnl Check for SunOS rt library
-  AC_CHECK_LIB(rt, sched_get_priority_max, 
+  AC_CHECK_LIB(rt, sched_get_priority_max,
   [ AC_DEFINE(HAVE_SCHED_RT,,[Defined if -lrt is needed for RT scheduling])
     PTHREAD_LIBS="$LIBS -lrt" ])
 
@@ -1014,31 +1014,31 @@ pthread_explicit="no"
   dnl Check for sched_yield
   AC_MSG_CHECKING(for sched_yield);
   AC_TRY_LINK([#include <sched.h>],
-    [ sched_yield(); ], 
+    [ sched_yield(); ],
     [ AC_MSG_RESULT(yes)
-      AC_DEFINE(HAVE_SCHED_YIELD,,[Defined if sched_yield() is available]) ],  
+      AC_DEFINE(HAVE_SCHED_YIELD,,[Defined if sched_yield() is available]) ],
     [ AC_MSG_RESULT(no) ])
 
   dnl Check for pthread_yield
   AC_MSG_CHECKING(for pthread_yield);
   AC_TRY_LINK([#include <pthread.h>],
-    [ pthread_yield(); ], 
+    [ pthread_yield(); ],
     [ AC_MSG_RESULT(yes)
-      AC_DEFINE(HAVE_PTHREAD_YIELD,,[Defined if pthread_yield() is available]) ],  
+      AC_DEFINE(HAVE_PTHREAD_YIELD,,[Defined if pthread_yield() is available]) ],
     [ AC_MSG_RESULT(no) ])
 
   dnl Check for pthread_key_create
   AC_MSG_CHECKING(for pthread_key_create)
   AC_TRY_LINK([#include <pthread.h>],
   [ pthread_key_create(0, 0);],
-  [ AC_MSG_RESULT(yes) 
+  [ AC_MSG_RESULT(yes)
     AC_DEFINE(HAVE_PTHREADKEY_CREATE,,[Defined if pthread_key_create() is available]) ],
   [ AC_MSG_RESULT(no)
     AC_MSG_CHECKING(for pthread_keycreate)
     AC_TRY_LINK([#include <pthread.h>],
-    [ pthread_keycreate(0,0); ], 
+    [ pthread_keycreate(0,0); ],
     [ AC_MSG_RESULT(yes)
-      AC_DEFINE(HAVE_PTHREADKEYCREATE,,[Defined if pthread_keycreate() is available]) 
+      AC_DEFINE(HAVE_PTHREADKEYCREATE,,[Defined if pthread_keycreate() is available])
     ], AC_MSG_RESULT(no))
   ])
 
@@ -1061,10 +1061,10 @@ dnl in the Software without restriction, including without limitation the rights
 dnl to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 dnl copies of the Software, and to permit persons to whom the Software is furnished
 dnl to do so, subject to the following conditions:
-dnl 
+dnl
 dnl The above copyright notice and this permission notice shall be included in all
 dnl copies or substantial portions of the Software.
-dnl 
+dnl
 dnl THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 dnl IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 dnl FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -1073,16 +1073,16 @@ dnl WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 dnl CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 dnl Find doxygen if it is available using the paramaeter path;
-dnl otherwise just check the user path. If Doxygen is found the 
+dnl otherwise just check the user path. If Doxygen is found the
 dnl executable is assigned to the DOXYGEN variable.
 
 dnl Eric Crahen <zthread@code-foo.com>
 
 dnl AM_WITH_DOXYGEN
-AC_DEFUN([AM_WITH_DOXYGEN], 
+AC_DEFUN([AM_WITH_DOXYGEN],
 [
 
-  AC_ARG_WITH(doxygen,[  --with-doxygen=PATH     Path to doxygen (optional)], 
+  AC_ARG_WITH(doxygen,[  --with-doxygen=PATH     Path to doxygen (optional)],
   [ AC_CHECK_PROG(DOXYGEN, doxygen, $withval/doxygen,,$withval) ],
   [ AC_PATH_PROG(DOXYGEN, doxygen,,$PATH) ])
 
@@ -1091,17 +1091,17 @@ AC_DEFUN([AM_WITH_DOXYGEN],
 NO_DOXYGEN_ERROR=<<EOT
 This configuration requires Doxygen, by Dimitri van Heesch.
 Visit www.stack.nl/~dimitri/doxygen/ for information about how to
-obtain a copy. 
+obtain a copy.
 
 If you already have Doxygen and it was not detected you should try the
 --with-doxygen option to specifiy the path to your doxygen executable.
 EOT
 
 dnl AM_WITH_DOXYGEN_REQUIRED
-AC_DEFUN([AM_WITH_DOXYGEN_REQUIRED], 
+AC_DEFUN([AM_WITH_DOXYGEN_REQUIRED],
 [
 
-  AM_WITH_DOXYGEN	
+  AM_WITH_DOXYGEN
   if test x$DOXYGEN == x; then
     AC_MSG_ERROR(${NO_PTHREAD_ERROR})
   fi
@@ -1117,10 +1117,10 @@ dnl in the Software without restriction, including without limitation the rights
 dnl to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 dnl copies of the Software, and to permit persons to whom the Software is furnished
 dnl to do so, subject to the following conditions:
-dnl 
+dnl
 dnl The above copyright notice and this permission notice shall be included in all
 dnl copies or substantial portions of the Software.
-dnl 
+dnl
 dnl THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 dnl IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 dnl FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -1129,21 +1129,21 @@ dnl WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 dnl CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 dnl
-dnl Enables AM_ENABLE_ATOMIC_LINUX to test for a working 
+dnl Enables AM_ENABLE_ATOMIC_LINUX to test for a working
 dnl <asm/atomic.h> header. Not all linux distributions
-dnl seem to include one that exposes atomic_inc() & 
+dnl seem to include one that exposes atomic_inc() &
 dnl atomic_dec_and_test()
 dnl
 dnl --enable-atomic-linux=yes|no [default=no]
 dnl --with-atomic-linux-include=kernel header path [optional]
-dnl 
-dnl If support is available, then HAVE_ATOMIC_LINUX 
+dnl
+dnl If support is available, then HAVE_ATOMIC_LINUX
 dnl will be set and CXXFLAGS will be updated
 dnl
 ifdef(AM_ENABLE_ATOMIC_LINUX,,[
 
 ATOMIC_LINUX_ERROR=<<"EOF"
-This system does not contain an <asm/atomic.h> kernel header 
+This system does not contain an <asm/atomic.h> kernel header
 that exposes atomic the neccessary atomic functions. Not all
 Linux distributions do.
 EOF
@@ -1154,7 +1154,7 @@ AC_DEFUN(AM_ENABLE_ATOMIC_LINUX,
 [AC_ARG_ENABLE(atomic-linux,
 	AC_HELP_STRING([--enable-atomic-linux],
 		       [use linux atomic instructions [default=no]]),
- [atomic_linux_explicit="yes"], 
+ [atomic_linux_explicit="yes"],
  [enable_atomic_linux="no"])
 
  AC_ARG_WITH(atomic-linux-include,
@@ -1163,11 +1163,11 @@ AC_DEFUN(AM_ENABLE_ATOMIC_LINUX,
  [atomic_prefix="$withval"
   enable_atomic_linux="yes"
   atomic_linux_explicit="yes"
- ], 
+ ],
  [atomic_prefix=""])
 
  if test $enable_atomic_linux = "yes"; then
- 
+
    ac_save_CXXFLAGS="$CXXFLAGS"
 
    if test x$atomic_prefix != x; then
@@ -1179,15 +1179,15 @@ AC_DEFUN(AM_ENABLE_ATOMIC_LINUX,
 
    AC_TRY_LINK([#include <asm/atomic.h>],
    [
-	atomic_t i = ATOMIC_INIT(0); 
-	atomic_inc(&i); 
+	atomic_t i = ATOMIC_INIT(0);
+	atomic_inc(&i);
 	atomic_dec_and_test(&i);
 
    ],
    [ AC_MSG_RESULT(yes)
-     AC_DEFINE(HAVE_ATOMIC_LINUX,, [Defined if <asm/atomic.h> is usable]) 
+     AC_DEFINE(HAVE_ATOMIC_LINUX,, [Defined if <asm/atomic.h> is usable])
    ],
-   [ AC_MSG_RESULT(no) 
+   [ AC_MSG_RESULT(no)
      CXXFLAGS="$ac_save_CXXFLAGS"
 
      if test $atomic_linux_explicit = "yes"; then
@@ -1196,7 +1196,7 @@ AC_DEFUN(AM_ENABLE_ATOMIC_LINUX,
    ])
 
  ])
- 
+
 fi
 
 ])
@@ -1212,10 +1212,10 @@ dnl in the Software without restriction, including without limitation the rights
 dnl to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 dnl copies of the Software, and to permit persons to whom the Software is furnished
 dnl to do so, subject to the following conditions:
-dnl 
+dnl
 dnl The above copyright notice and this permission notice shall be included in all
 dnl copies or substantial portions of the Software.
-dnl 
+dnl
 dnl THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 dnl IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 dnl FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -1224,12 +1224,12 @@ dnl WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 dnl CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 dnl
-dnl Enables AM_ENABLE_ATOMIC_GCC to test for 
+dnl Enables AM_ENABLE_ATOMIC_GCC to test for
 dnl GCC's atomic instruction support.
 dnl
 dnl --enable-atomic-gcc=yes|no [default=no]
 dnl
-dnl If support is available, then HAVE_ATOMIC_GCC 
+dnl If support is available, then HAVE_ATOMIC_GCC
 dnl will be set
 dnl
 ifdef(AM_ENABLE_ATOMIC_GCC,,[
@@ -1245,7 +1245,7 @@ AC_DEFUN(AM_ENABLE_ATOMIC_GCC,
 [AC_ARG_ENABLE(atomic-gcc,
 	AC_HELP_STRING([--enable-atomic-gcc],
 		       [use gcc atomic instructions [default=no]]),
- [atomic_gcc_explicit="yes"], 
+ [atomic_gcc_explicit="yes"],
  [enable_atomic_gcc="no"])
 
  if test $enable_atomic_gcc = "yes"; then
@@ -1255,23 +1255,23 @@ AC_DEFUN(AM_ENABLE_ATOMIC_GCC,
 
    AC_TRY_LINK([#include <bits/atomicity.h>],
    [
-      _Atomic_word i(0); 
-      __atomic_add(&i, 1); 
-      __exchange_and_add(&i, 1); 
+      _Atomic_word i(0);
+      __atomic_add(&i, 1);
+      __exchange_and_add(&i, 1);
 
    ],
    [ AC_MSG_RESULT(yes)
-     AC_DEFINE(HAVE_ATOMIC_GCC,, [Defined if <bits/atomicity.h> is usable]) 
+     AC_DEFINE(HAVE_ATOMIC_GCC,, [Defined if <bits/atomicity.h> is usable])
    ],
    [ AC_MSG_RESULT(no)
 
-     if test $atomic_gcc_explicit = "yes"; then 
-       AC_MSG_ERROR(${ATOMIC_GCC_ERROR})   
+     if test $atomic_gcc_explicit = "yes"; then
+       AC_MSG_ERROR(${ATOMIC_GCC_ERROR})
      fi
    ])
 
  ])
- 
+
 fi
 
 ])
@@ -1287,10 +1287,10 @@ dnl in the Software without restriction, including without limitation the rights
 dnl to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 dnl copies of the Software, and to permit persons to whom the Software is furnished
 dnl to do so, subject to the following conditions:
-dnl 
+dnl
 dnl The above copyright notice and this permission notice shall be included in all
 dnl copies or substantial portions of the Software.
-dnl 
+dnl
 dnl THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 dnl IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 dnl FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -1299,17 +1299,17 @@ dnl WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 dnl CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 dnl
-dnl Enables AM_DETECT_FTIME to test for 
+dnl Enables AM_DETECT_FTIME to test for
 dnl the right ftime()/_ftime() function
 dnl
 dnl --enable-atomic-gcc=yes|no [default=no]
 dnl
 dnl If support is available, then SYSTEM_FTIME
-dnl is defined to be the ftime function 
+dnl is defined to be the ftime function
 dnl will be set
 dnl
 ifdef(AM_DETECT_FTIME,,[
-  
+
 NO_FTIME_ERROR=<<"EOF"
 ftime()/_ftime() could not be found on this system.
 EOF
@@ -1324,7 +1324,7 @@ AC_DEFUN(AM_DETECT_FTIME,
 		       [select an ftime() [default=detect]]),
  [have_ftime="$withval"
   if test $withval = "yes"; then have_ftime="detect"; fi
- ], 
+ ],
  [have_ftime="detect"])
 
  if test $have_ftime = "detect"; then
@@ -1339,7 +1339,7 @@ AC_DEFUN(AM_DETECT_FTIME,
    echo "verifying POSIX ftime() function"
  fi
 
- dnl Test win32 style 
+ dnl Test win32 style
  if test $have_ftime != "posix"; then
 
  AC_CHECK_HEADER([sys/time.h],
@@ -1348,7 +1348,7 @@ AC_DEFUN(AM_DETECT_FTIME,
    AC_TRY_LINK([#include <sys/time.h>],[_ftime(0);],
    [ AC_MSG_RESULT(yes)
      AC_DEFINE_UNQUOTED(SYSTEM_FTIME, [_ftime],
-	[Defined if ftime()/_ftime() is usable])	
+	[Defined if ftime()/_ftime() is usable])
      have_ftime="win32"
    ],
    [ AC_MSG_RESULT(no) ])
@@ -1357,7 +1357,7 @@ AC_DEFUN(AM_DETECT_FTIME,
 
  fi
 
- dnl Test posix style 
+ dnl Test posix style
  if test $have_ftime != "win32"; then
 
  AC_CHECK_HEADER([sys/timeb.h],
@@ -1366,7 +1366,7 @@ AC_DEFUN(AM_DETECT_FTIME,
    AC_TRY_LINK([#include <sys/timeb.h>], [ ftime(0); ] ,
    [ AC_MSG_RESULT(yes)
      AC_DEFINE_UNQUOTED(SYSTEM_FTIME, [ftime],
-	[Defined if ftime()/_ftime() is usable])	
+	[Defined if ftime()/_ftime() is usable])
      have_ftime="posix"
    ],
    [ AC_MSG_RESULT(no) ])
@@ -1620,7 +1620,7 @@ if test -z "$ltmain"; then
   exit 1
 fi
 gentoo_lt_version="1.5.10"
-gentoo_ltmain_version=`grep '^[[:space:]]*VERSION=' $ltmain | sed -e 's|^[[:space:]]*VERSION=||'`
+gentoo_ltmain_version=`grep '^[[[:space:]]]*VERSION=' $ltmain | sed -e 's|^[[[:space:]]]*VERSION=||'`
 if test "$gentoo_lt_version" != "$gentoo_ltmain_version"; then
   AC_MSG_RESULT(no)
   echo
@@ -1955,7 +1955,7 @@ x86_64-*linux*|ppc*-*linux*|powerpc*-*linux*|s390*-*linux*|sparc*-*linux*)
   fi
   rm -rf conftest*
   ;;
-  
+
 *-*-sco3.2v5*)
   # On SCO OpenServer 5, we need -belf to get full-featured binaries.
   SAVE_CFLAGS="$CFLAGS"
@@ -3162,7 +3162,7 @@ if test -f "$ltmain" && test -n "$tagnames"; then
       case $tagname in
       CXX)
 	if test -n "$CXX" && ( test "X$CXX" != "Xno" &&
-	    ( (test "X$CXX" = "Xg++" && `g++ -v >/dev/null 2>&1` ) || 
+	    ( (test "X$CXX" = "Xg++" && `g++ -v >/dev/null 2>&1` ) ||
 	    (test "X$CXX" != "Xg++"))) ; then
 	  AC_LIBTOOL_LANG_CXX_CONFIG
 	else
@@ -3908,7 +3908,7 @@ AC_DEFUN([_LT_AC_PROG_CXXCPP],
 [
 AC_REQUIRE([AC_PROG_CXX])
 if test -n "$CXX" && ( test "X$CXX" != "Xno" &&
-    ( (test "X$CXX" = "Xg++" && `g++ -v >/dev/null 2>&1` ) || 
+    ( (test "X$CXX" = "Xg++" && `g++ -v >/dev/null 2>&1` ) ||
     (test "X$CXX" != "Xg++"))) ; then
   AC_PROG_CXXCPP
 fi
@@ -7457,4 +7457,3 @@ done
 SED=$lt_cv_path_SED
 AC_MSG_RESULT([$SED])
 ])
-
